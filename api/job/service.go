@@ -1,0 +1,12 @@
+package job
+
+import "github.com/LibenHailu/fjobs/api/entity"
+
+type JobService interface {
+	StoreJob(job *entity.Job) (*entity.Job, []error)
+	Jobs(search string) ([]entity.Job, []error)
+	Job(job *entity.Job) (*entity.Job, []error)
+	JobByID(id uint) (*entity.Job, []error)
+	UpdateJob(user *entity.Job) (*entity.Job, []error)
+	DeleteJob(id uint) (*entity.Job, []error)
+}	
