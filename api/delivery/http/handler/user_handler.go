@@ -10,17 +10,16 @@ import (
 	"github.com/LibenHailu/fjobs/api/user"
 	"github.com/julienschmidt/httprouter"
 )
-
+// creating response struct
 type response struct {
 	Status  string
 	Content interface{}
 }
-
-
+// creating user handler for implementing userservice
 type UserHandler struct {
 	userService user.UserService
 }
-
+// init user handler
 func NewUserHandler(us user.UserService) *UserHandler {
 	return &UserHandler{userService: us}
 }
@@ -54,7 +53,7 @@ func (uh *UserHandler) GetUser(w http.ResponseWriter, r *http.Request, _ httprou
 	w.Write(output)
 	return
 }
-
+// delete user
 func (uh *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	w.Header().Set("Content-type", "application/json")
@@ -85,7 +84,7 @@ func (uh *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request, ps htt
 
 }
 
-// PostUser handles POST /v1/users requests
+// PostUser requests
 func (uh *UserHandler) PostUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-type", "application/json")
 
@@ -141,7 +140,7 @@ func (uh *UserHandler) RecommendedJobs(w http.ResponseWriter, r *http.Request, p
 		return
 	}
 	w.Write(output)
-	// w.WriteHeader(http.StatusNoContent)
+	w.WriteHeader(http.StatusNoContent)
 	fmt.Println(job)
 	return
 

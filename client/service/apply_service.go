@@ -9,12 +9,12 @@ import (
 
 	"github.com/LibenHailu/fjobs/api/entity"
 )
-
+// reaponse struct
 type response struct {
 	Status  string
 	Content interface{}
 }
-
+// send get request to the  url 
 func GetJobTo(id uint) (*entity.Job, error) {
 	client := &http.Client{}
 	URL := fmt.Sprintf("%sjbyid?id=%d", baseURL, id)

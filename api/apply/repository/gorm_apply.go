@@ -7,15 +7,15 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 )
-
+// creating connection 
 type ApplyGormRepo struct {
 	conn *gorm.DB
 }
-
+// initializing connection
 func NewApplyGormRepo(dbconn *gorm.DB) *ApplyGormRepo {
 	return &ApplyGormRepo{conn: dbconn}
 }
-
+// store applies with gorm  
 func (ar *ApplyGormRepo) StoreApply(apply *entity.Apply) (*entity.Apply, []error) {
 	aly := apply
 	errs := ar.conn.Create(aly).GetErrors()

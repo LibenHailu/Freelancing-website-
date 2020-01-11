@@ -7,14 +7,15 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 )
-
+// gorm
 type JobGormRepo struct {
 	conn *gorm.DB
 }
-
+// init jobgorm repo
 func NewJobGormRepo(dbconn *gorm.DB) *JobGormRepo {
 	return &JobGormRepo{conn: dbconn}
 }
+// fetch jobs by catagory as an input
 func (jr *JobGormRepo) Jobs(category string) ([]entity.Job, []error) {
 	jobs := []entity.Job{}
 	errs := jr.conn.Where("Category = ?", category).Find(&jobs).GetErrors()
@@ -24,6 +25,7 @@ func (jr *JobGormRepo) Jobs(category string) ([]entity.Job, []error) {
 	}
 	return jobs, nil
 }
+// retuns a struct from a struct
 func (jr *JobGormRepo) Job(job *entity.Job) (*entity.Job, []error) {
 	myJob := entity.Job{}
 	errs := jr.conn.Where("category = ?", job.Category).Find(&myJob).GetErrors()
@@ -32,6 +34,7 @@ func (jr *JobGormRepo) Job(job *entity.Job) (*entity.Job, []error) {
 	}
 	return &myJob, nil
 }
+// returns job struct after it featched by its id
 func (jr *JobGormRepo) JobByID(id uint) (*entity.Job, []error) {
 	job := entity.Job{}
 	errs := jr.conn.First(&job, id).GetErrors()
@@ -41,7 +44,7 @@ func (jr *JobGormRepo) JobByID(id uint) (*entity.Job, []error) {
 
 	return &job, nil
 }
-
+// update job implementation
 func (jr *JobGormRepo) UpdateJob(job *entity.Job) (*entity.Job, []error) {
 	myJob := job
 	errs := jr.conn.Save(job).GetErrors()
@@ -51,7 +54,7 @@ func (jr *JobGormRepo) UpdateJob(job *entity.Job) (*entity.Job, []error) {
 	}
 	return myJob, nil
 }
-
+// delete job implementation
 func (jr *JobGormRepo) DeleteJob(id uint) (*entity.Job, []error) {
 	job, errs := jr.JobByID(id)
 
@@ -67,7 +70,7 @@ func (jr *JobGormRepo) DeleteJob(id uint) (*entity.Job, []error) {
 
 	return job, nil
 }
-
+// store job implementation
 func (jr *JobGormRepo) StoreJob(job *entity.Job) (*entity.Job, []error) {
 	myjob := job
 	errs := jr.conn.Create(myjob).GetErrors()

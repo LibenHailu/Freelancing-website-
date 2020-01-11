@@ -9,15 +9,15 @@ import (
 	"github.com/LibenHailu/fjobs/api/entity"
 	"github.com/julienschmidt/httprouter"
 )
-
+// struct which implements ApplyService
 type ApplyHandler struct {
 	applyService apply.ApplyService
 }
-
+// init apply handler
 func NewApplyHandler(as apply.ApplyService) *ApplyHandler {
 	return &ApplyHandler{applyService: as}
 }
-
+// handler for posting apply all the api implementations goes here
 func (ah *ApplyHandler) PostApply(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-type", "application/json")
 

@@ -1,7 +1,7 @@
 package user
 
 import "github.com/LibenHailu/fjobs/api/entity"
-
+// user repo interface 
 type UserRepository interface {
 	Users() ([]entity.User, []error)
 	User(user *entity.User) (*entity.User, []error)

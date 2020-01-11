@@ -12,20 +12,20 @@ import (
 
 	"github.com/LibenHailu/fjobs/api/entity"
 )
-
+// struct to hold myjob response
 type myjobresponse struct {
 	Status  string
 	Content interface{}
 }
-
+// struct to implement jobservice
 type MyJobHandler struct {
 	myjobService myjob.MyJobService
 }
-
+// init job handler
 func NewMyJobHandler(mjs myjob.MyJobService) *MyJobHandler {
 	return &MyJobHandler{myjobService: mjs}
 }
-
+// api implementaion for postmyjob on signup
 func (mjh *MyJobHandler) PostMyJob(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// w.Header().Set("Content-type", "application/json")
 	fmt.Println("inside post myjob")
@@ -54,7 +54,7 @@ func (mjh *MyJobHandler) PostMyJob(w http.ResponseWriter, r *http.Request, ps ht
 	w.WriteHeader(http.StatusCreated)
 	return
 }
-
+// api implementaion for get my job
 func (mjh *MyJobHandler) GetMyJob(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	usrid, err := strconv.Atoi(r.URL.Query().Get("userid"))
 	fmt.Println(usrid)

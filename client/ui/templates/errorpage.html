@@ -9,5 +9,8 @@
 {{ define "error.content" }}
 <div class="container">
     <h2>No Content</h2>
+    {{range .}}
+    <h1>{{.ID}}</h1>
+    {{end}}
 </div>
 {{end}}

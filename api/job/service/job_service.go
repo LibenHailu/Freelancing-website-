@@ -6,14 +6,15 @@ import (
 	"github.com/LibenHailu/fjobs/api/entity"
 	"github.com/LibenHailu/fjobs/api/job"
 )
-
+// ser
 type JobService struct {
 	jobRepo job.JobRepository
 }
-
+// init ser
 func NewJobService(repo job.JobRepository) *JobService {
 	return &JobService{jobRepo: repo}
 }
+// calls jobs on repository layer
 func (js *JobService) Jobs(category string) ([]entity.Job, []error) {
 	jobs, errs := js.jobRepo.Jobs(category)
 	if len(errs) > 0 {
@@ -22,7 +23,7 @@ func (js *JobService) Jobs(category string) ([]entity.Job, []error) {
 
 	return jobs, nil
 }
-
+// job 
 func (js *JobService) Job(job *entity.Job) (*entity.Job, []error) {
 	job, errs := js.jobRepo.Job(job)
 	fmt.Println(errs)
@@ -32,7 +33,7 @@ func (js *JobService) Job(job *entity.Job) (*entity.Job, []error) {
 
 	return job, nil
 }
-
+// it returns ajob after it feated it by its id
 func (js *JobService) JobByID(id uint) (*entity.Job, []error) {
 	job, errs := js.jobRepo.JobByID(id)
 
@@ -42,7 +43,7 @@ func (js *JobService) JobByID(id uint) (*entity.Job, []error) {
 
 	return job, nil
 }
-
+// update
 func (js *JobService) UpdateJob(job *entity.Job) (*entity.Job, []error) {
 	myjob, errs := js.jobRepo.UpdateJob(job)
 
@@ -52,7 +53,7 @@ func (js *JobService) UpdateJob(job *entity.Job) (*entity.Job, []error) {
 
 	return myjob, nil
 }
-
+// delets job calls the delete job method on repository layer
 func (js *JobService) DeleteJob(id uint) (*entity.Job, []error) {
 	usr, errs := js.jobRepo.DeleteJob(id)
 
@@ -62,7 +63,7 @@ func (js *JobService) DeleteJob(id uint) (*entity.Job, []error) {
 
 	return usr, nil
 }
-
+// stores user
 func (js *JobService) StoreJob(job *entity.Job) (*entity.Job, []error) {
 	myjob, errs := js.jobRepo.StoreJob(job)
 	if len(errs) > 0 {

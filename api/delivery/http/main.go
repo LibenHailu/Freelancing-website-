@@ -69,7 +69,7 @@ func main() {
 	router.POST("/v1/users", userHandl.PostUser)
 	router.DELETE("/v1/user/:id", userHandl.DeleteUser)
 	router.GET("/v1/user/:id", userHandl.RecommendedJobs)
-	// this is for jobs this took more than 6 painful hours
+	// this is for jobs this
 	router.GET("/v1/job", jobHandl.GetJob)
 	router.GET("/v1/jobs", jobHandl.GetJobs)
 	router.POST("/v1/job", jobHandl.PostJob)

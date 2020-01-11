@@ -13,12 +13,12 @@ import (
 
 	"github.com/LibenHailu/fjobs/api/entity"
 )
-
+// cookie struct
 type cookie struct {
 	Key        string
 	Expiration time.Time
 }
-
+// struct contains entity job
 type JobCollection struct {
 	Jobs []entity.Job `json:"Content"`
 }
@@ -26,7 +26,7 @@ type JobCollection struct {
 var loggedIn = make([]cookie, 10)
 
 const baseURL string = "http://localhost:8181/v1/"
-
+// makes post request to the specific url inside the function
 func PostUser(user *entity.User) error {
 	requestbody, err := json.MarshalIndent(user, "", "\n")
 	URL := fmt.Sprintf("%s%s", baseURL, "users")
@@ -51,7 +51,7 @@ func PostUser(user *entity.User) error {
 	fmt.Println(string(body))
 	return nil
 }
-
+// gets user
 func GetUser(user *entity.User) (*entity.User, error) {
 	URL := fmt.Sprintf("%s%s", baseURL, "user")
 	formval := url.Values{}
@@ -79,6 +79,7 @@ func GetUser(user *entity.User) (*entity.User, error) {
 	}
 	return &respjson.Content, nil
 }
+// get searched job
 func GetJobs(search string) ([]entity.Job, error) {
 	client := &http.Client{}
 	URL := fmt.Sprintf("%sjobs?category=%s", baseURL, search)
@@ -101,7 +102,7 @@ func GetJobs(search string) ([]entity.Job, error) {
 	}
 	return jobdata.Jobs, nil
 }
-
+// posts job
 func PostMyJob(id uint, myjob string) error {
 	// myjob := entity.MyJob{}
 	client := &http.Client{}
@@ -118,7 +119,7 @@ func PostMyJob(id uint, myjob string) error {
 	return nil
 
 }
-
+// get remommended jobs
 func GetRecommendedJobs(id uint) ([]entity.Job, error) {
 	client := &http.Client{}
 	URL := fmt.Sprintf("%suser/%d", baseURL, id)
@@ -189,3 +190,5 @@ func PostJob(job *entity.Job) error {
 	fmt.Println(string(body))
 	return nil
 }
+
+

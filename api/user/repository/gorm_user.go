@@ -7,15 +7,15 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 )
-
+// gotm conn
 type UserGormRepo struct {
 	conn *gorm.DB
 }
-
+// init conn
 func NewUserGormRepo(dbconn *gorm.DB) *UserGormRepo {
 	return &UserGormRepo{conn: dbconn}
 }
-
+// gets users 
 func (ur *UserGormRepo) Users() ([]entity.User, []error) {
 	users := []entity.User{}
 	errs := ur.conn.Find(&users).GetErrors()
@@ -26,7 +26,7 @@ func (ur *UserGormRepo) Users() ([]entity.User, []error) {
 
 	return users, nil
 }
-
+// return a single user for login purpose
 func (ur *UserGormRepo) User(user *entity.User) (*entity.User, []error) {
 	usr := entity.User{}
 	errs := ur.conn.Where("email = ? AND password = ?", user.Email, user.Password).First(&usr).GetErrors()
@@ -37,7 +37,7 @@ func (ur *UserGormRepo) User(user *entity.User) (*entity.User, []error) {
 
 	return &usr, nil
 }
-
+// find user by id
 func (ur *UserGormRepo) UserByID(id uint) (*entity.User, []error) {
 	usr := entity.User{}
 	errs := ur.conn.First(&usr, id).GetErrors()
@@ -47,7 +47,7 @@ func (ur *UserGormRepo) UserByID(id uint) (*entity.User, []error) {
 
 	return &usr, nil
 }
-
+// updates user
 func (ur *UserGormRepo) UpdateUser(user *entity.User) (*entity.User, []error) {
 	usr := user
 	errs := ur.conn.Save(usr).GetErrors()
@@ -58,7 +58,7 @@ func (ur *UserGormRepo) UpdateUser(user *entity.User) (*entity.User, []error) {
 
 	return usr, nil
 }
-
+// delete user by id
 func (ur *UserGormRepo) DeleteUser(id uint) (*entity.User, []error) {
 	usr, errs := ur.UserByID(id)
 
@@ -74,7 +74,7 @@ func (ur *UserGormRepo) DeleteUser(id uint) (*entity.User, []error) {
 
 	return usr, nil
 }
-
+// stores user
 func (ur *UserGormRepo) StoreUser(user *entity.User) (*entity.User, []error) {
 	usr := user
 	errs := ur.conn.Create(usr).GetErrors()

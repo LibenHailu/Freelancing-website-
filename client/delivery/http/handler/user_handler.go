@@ -10,19 +10,21 @@ import (
 	"github.com/LibenHailu/fjobs/api/entity"
 	"github.com/LibenHailu/fjobs/client/service"
 )
-
+// struct implements useful things for handling requests
 type UserHandler struct {
 	templ *template.Template
 }
-
+// init user handler
 func NewUserHandler(tmlp *template.Template) *UserHandler {
 	return &UserHandler{templ: tmlp}
 }
+// handle / get request
 func (uh *UserHandler) Index(w http.ResponseWriter, r *http.Request) {
 
 	uh.templ.ExecuteTemplate(w, "index.layout", nil)
 	// uh.templ.ExecuteTemplate(w, "indexmainauth.layout", nil)
 }
+// handles users with auth
 func (uh *UserHandler) IndexAuth(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("user")
 	id, _ := strconv.ParseInt(c.Value, 10, 0)
@@ -36,6 +38,7 @@ func (uh *UserHandler) IndexAuth(w http.ResponseWriter, r *http.Request) {
 	// uh.templ.ExecuteTemplate(w, "index.layout", nil)
 	uh.templ.ExecuteTemplate(w, "indexmainauth.layout", data)
 }
+// handles sign up request
 func (uh *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		uh.templ.ExecuteTemplate(w, "signup.layout", nil)
@@ -54,11 +57,7 @@ func (uh *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
 		user := entity.User{FirstName: firstname, LastName: lastname, UserName: username, Email: email, Password: password, AboutYou: aboutyou, Country: country}
 		err := service.PostUser(&user)
 		if err != nil {
-			// if strings.Compare(err.Error(), "duplicate") == 0 {
-			// 	fmt.Println("duplicate")
-			// 	uh.templ.ExecuteTemplate(w, "signup.layout", "email is already taken")
-			// 	return
-			// }
+		
 			w.Write([]byte("failed"))
 			return
 		}
@@ -107,6 +106,7 @@ func (uh *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+// handles login request
 func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("inside Login method..")
 	if r.Method == http.MethodGet {
@@ -146,7 +146,7 @@ func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-
+// handles search requests
 func (uh *UserHandler) Search(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("inside Search method..")
 	if r.Method == http.MethodPost {
@@ -171,7 +171,7 @@ func (uh *UserHandler) Search(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-
+//handles search for the users with auth
 func (uh *UserHandler) SearchAuth(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("inside Search method..")
 	if r.Method == http.MethodPost {
@@ -196,7 +196,7 @@ func (uh *UserHandler) SearchAuth(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-
+// handles posting job 
 func (uh *UserHandler) Post(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		c, err := r.Cookie("user")

@@ -10,19 +10,20 @@ import (
 	"github.com/LibenHailu/fjobs/api/job"
 	"github.com/julienschmidt/httprouter"
 )
-
+// declaring a struct 
 type jobresponse struct {
 	Status  string
 	Content interface{}
 }
-
+// declaring a handler struct
 type JobHandler struct {
 	jobService job.JobService
 }
-
+// init handler
 func NewJobHandler(js job.JobService) *JobHandler {
 	return &JobHandler{jobService: js}
 }
+//  api implementation for get jobs
 func (jh *JobHandler) GetJob(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-type", "application/json")
 	// email := r.PostFormValue("email")
@@ -51,6 +52,7 @@ func (jh *JobHandler) GetJob(w http.ResponseWriter, r *http.Request, _ httproute
 	w.Write(output)
 	return
 }
+// api implementation for post job
 func (jh *JobHandler) PostJob(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Println("inside post job")
 	w.Header().Set("Content-type", "application/json")
@@ -80,6 +82,7 @@ func (jh *JobHandler) PostJob(w http.ResponseWriter, r *http.Request, _ httprout
 	w.WriteHeader(http.StatusCreated)
 	return
 }
+// api implementaion for get jobs
 func (jh *JobHandler) GetJobs(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-type", "application/json")
 	// email := r.PostFormValue("email")
@@ -107,7 +110,7 @@ func (jh *JobHandler) GetJobs(w http.ResponseWriter, r *http.Request, _ httprout
 	w.Write(output)
 	return
 }
-
+// api implementation for get job by id
 func (jh *JobHandler) GetJobBy(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-type", "application/json")
 	// email := r.PostFormValue("email")

@@ -1,7 +1,7 @@
 package job
 
 import "github.com/LibenHailu/fjobs/api/entity"
-
+// repo interface
 type JobRepository interface {
 	StoreJob(job *entity.Job) (*entity.Job, []error)
 	Jobs(search string) ([]entity.Job, []error)

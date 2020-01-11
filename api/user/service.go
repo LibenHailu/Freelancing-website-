@@ -1,6 +1,6 @@
 package user
 import  "github.com/LibenHailu/fjobs/api/entity"
-
+// user service interface
 type UserService interface{
 	Users() ([]entity.User, []error)
 	User(user *entity.User) (*entity.User, []error)
